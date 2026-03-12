@@ -14,15 +14,15 @@ EQUIPMENT_DATA = [
 
 @app.route('/')
 def login():
-    return render_template('login.html')
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html', equipment=EQUIPMENT_DATA)
+    return render_template('login.html', user_logged_in=False)
 
 @app.route('/register')
 def register():
-    return "<h1>Registration Page Coming Soon</h1>"
+    return render_template('register.html', user_logged_in=False)
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('equipment.html', equipment=EQUIPMENT_DATA, user_logged_in=True)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,16 +1,17 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="row mb-4">
     <div class="col">
         <h2>Lab Equipment Inventory</h2>
-        <p class="text-muted">View availability and reserve time slots.</p>
+        <p class="text-muted">Current availability for all lab assets.</p>
     </div>
 </div>
 
-<div class="card shadow-sm">
+<div class="card shadow-sm border-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
+            <thead class="table-dark">
                 <tr>
                     <th>Equipment Name</th>
                     <th>Status</th>
@@ -24,17 +25,17 @@
                     <td><strong>{{ item.name }}</strong></td>
                     <td>
                         {% if item.status == 'available' %}
-                        <span class="badge bg-success text-white">Available</span>
+                            <span class="badge bg-success text-white">Available</span>
                         {% else %}
-                        <span class="badge bg-danger text-white">In Use / Repair</span>
+                            <span class="badge bg-danger text-white">In Use / Repair</span>
                         {% endif %}
                     </td>
                     <td><small class="text-muted">Standard Lab Specs</small></td>
                     <td>
                         {% if item.status == 'available' %}
-                        <button class="btn btn-sm btn-primary">Reserve Slot</button>
+                            <button class="btn btn-sm btn-primary">Reserve Slot</button>
                         {% else %}
-                        <button class="btn btn-sm btn-outline-secondary">Join Waitlist</button>
+                            <button class="btn btn-sm btn-outline-secondary">Join Waitlist</button>
                         {% endif %}
                     </td>
                 </tr>
