@@ -1,7 +1,7 @@
 import bcrypt as bc
 
 
-def HashPassword(plainPassword):
+def HashPassword(plainPassword: str):
     """
     Function: HashPassword()
     Description: Hashes the password.
@@ -16,7 +16,7 @@ def HashPassword(plainPassword):
 
     return hashedPassword
 
-def CheckHash(plainPassword, hashPassword):
+def CheckHash(plainPassword: str, hashPasswors: bytes):
     """
     Function: CheckHash()
     Description: Hashes plainPassword and then checks it against hashPassword.
