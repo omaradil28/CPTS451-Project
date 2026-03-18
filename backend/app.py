@@ -36,19 +36,34 @@ def submit_registration():
 
     password_hash = HashPassword(password_pt).decode('utf-8')
 
-    # Insert into sql database (currently only students)
-    cursor.execute(
-        f"""
-        INSERT INTO users (name, email, password_hash, role)
-        VALUES ('{name}', '{email}', '{password_hash}', '{role}');
+    # Check if email already exists in database
+    emailExists = cursor.execute(
         """
+        SELECT * FROM users 
+            WHERE email = %s;
+        """,
+        (email,)
     )
 
-    db.commit()
-    cursor.close()
-    db.close()
+    if not emailExists:
+        # Insert into sql database (currently only students)
+        cursor.execute(
+            """
+            INSERT INTO users (name, email, password_hash, role)
+                VALUES (%s, %s, %s, %s);
+            """,
+            (name, email, password_hash, role)
+        )
 
-    return redirect(url_for('login'))
+        db.commit()
+        cursor.close()
+        db.close()
+
+        return redirect(url_for('login'))
+    
+    else:
+        return render_template('register.html', user_logged_in=False, account_exists=True)
+
 
 @app.route('/dashboard')
 def dashboard():
