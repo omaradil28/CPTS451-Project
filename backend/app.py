@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 import MySQLdb
 import MySQLdb.cursors
 from dotenv import load_dotenv
+from pwsecurity import HashPassword
 import os
 
 # Load environment variables from .env in the project root
@@ -29,6 +30,32 @@ def login():
 @app.route('/register')
 def register():
     return render_template('register.html', user_logged_in=False)
+
+@app.route('/register/submit', methods=["POST"])
+def submit_registration():
+    db = get_db_connection()
+    cursor = db.cursor()
+
+    # Get names from form
+    name = request.form["name"]
+    email = request.form["email"]
+    password_pt = request.form["password"]
+
+    password_hash = HashPassword(password_pt).decode('utf-8')
+
+    # Insert into sql database (currently only students)
+    cursor.execute(
+        f"""
+        INSERT INTO users (name, email, password_hash, role)
+        VALUES ('{name}', '{email}', '{password_hash}', 'student');
+        """
+    )
+
+    db.commit()
+    cursor.close()
+    db.close()
+
+    return redirect(url_for('login'))
 
 @app.route('/dashboard')
 def dashboard():
