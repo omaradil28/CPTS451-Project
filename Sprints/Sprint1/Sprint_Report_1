@@ -1,9 +1,14 @@
-# Sprint x Report 
+# Sprint 1 Report 
 Video Link: 
 ## What's New (User Facing)
- * Feature 1 or Bug Fix 1
- * Feature 2 or Bug Fix 2
- * Feature n or Bug Fix n
+ * FEAT-101 (Omar Adil) - Dynamic Inventory Dashboard
+ Displays the list of lab tools, using colored badges (Green/Red) and buttons that change automatically based on the equipment's status.
+ * FEAT-102 (Omar Adil) - Authentication Interface
+ Page that collects user credentials and provides the entry point to the rest of the application.
+ * FEAT-103 (Omar Adil) - UI Framework
+ Provides the main navigation bar and styling for the entire site, using logic to hide or show tabs based on whether a user is logged in.
+ * FEAT-104 (Omar Adil) - URL Routing & Mock Data
+ Connects the URLs to the HTML files and provides the placeholder data used to test the website before the database is finished.
 
 ## Work Summary (Developer Facing)
 Provide a one paragraph synposis of what your team accomplished this sprint. Don't repeat the "What's New" list of features. Instead, help the instructor understand how you went about the work described there, any barriers you overcame, and any significant learnings for your team.
@@ -14,9 +19,10 @@ If applicable, explain the work you did not finish in this sprint. For issues/us
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
 
- * URL of issue 1
- * URL of issue 2
- * URL of issue n
+ * URL of FEAT-101: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164712906&issue=omaradil28%7CCPTS451-Project%7C1
+ * URL of FEAT-102: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164713179&issue=omaradil28%7CCPTS451-Project%7C2
+ * URL of FEAT-103: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718476&issue=omaradil28%7CCPTS451-Project%7C20
+ * URL of FEAT-104: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718679&issue=omaradil28%7CCPTS451-Project%7C21
 
  Desirables (Remove this section when you save the file):
   * Each issue should be assigned to a milestone
