@@ -4,6 +4,7 @@
     <div class="col-md-5">
         <div class="card shadow-sm">
             <div class="card-body">
+                <h3 class="text-center mb-4">Register Account</h3>
                 {% if account_exists %}
                 <div style="
                     background-color: #f8d7da;
@@ -17,7 +18,6 @@
                     An account with that email already exists.
                 </div>
                 {% endif %}
-                <h3 class="text-center mb-4">Register Account</h3>
                 <form action="{{ url_for('submit_registration') }}" method="POST">
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>

@@ -62,6 +62,9 @@ def submit_registration():
         return redirect(url_for('login'))
     
     else:
+        cursor.close()
+        db.close()
+
         return render_template('register.html', user_logged_in=False, account_exists=True)
 
 
