@@ -4,7 +4,7 @@ import MySQLdb.cursors
 
 import database as dbl
 from dotenv import load_dotenv
-from pwsecurity import HashPassword
+from pwsecurity import HashPassword, CheckHash
 import os
 
 # Load environment variables from .env in the project root
@@ -18,6 +18,43 @@ app = Flask(__name__,
 @app.route('/')
 def login():
     return render_template('login.html', user_logged_in=False)
+
+@app.route('/login/submit', methods=["POST"])
+def submit_login():
+    db = dbl.get_db_connection()
+    cursor = db.cursor()
+
+    # Get login details
+    email = request.form["email"]
+    password_pt = request.form["password"]
+
+    # Check for account in database
+    emailExists = cursor.execute(
+        """
+        SELECT * FROM users 
+            WHERE email = %s;
+        """,
+        (email,)
+    )
+
+    if not emailExists:
+        cursor.close()
+        db.close()
+        return render_template('login.html', user_logged_in=False, bad_login=True)
+    
+    else:
+        tableRow = cursor.fetchone()
+        cursor.close()
+        db.close()
+
+        # Check password matches
+        dbPasswordHash = tableRow["password_hash"]
+        if CheckHash(password_pt, dbPasswordHash.encode('utf-8')):
+            # Successful login
+            return redirect('/dashboard')
+        
+        else:
+            return render_template('login.html', user_logged_in=False, bad_login=True)
 
 @app.route('/register')
 def register():

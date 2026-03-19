@@ -16,7 +16,7 @@ def HashPassword(plainPassword: str):
 
     return hashedPassword
 
-def CheckHash(plainPassword: str, hashPassword: bytes):
+def CheckHash(plainPassword: str, hashPassword: bytes) -> bool:
     """
     Function: CheckHash()
     Description: Hashes plainPassword and then checks it against hashPassword.
