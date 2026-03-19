@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 import MySQLdb
 import MySQLdb.cursors
+from datetime import timedelta
 
 import database as dbl
 from dotenv import load_dotenv
@@ -16,6 +17,7 @@ app = Flask(__name__,
             static_folder='../frontend/static')
 
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
+app.permanent_session_lifetime = timedelta(hours=6)
 
 @app.route('/')
 def login():
@@ -32,23 +34,24 @@ def submit_login():
     # Get login details
     email = request.form["email"]
     password_pt = request.form["password"]
+    stay_logged_in = request.form.get("stay_logged_in") is not None
 
     # Check for account in database
-    emailExists = cursor.execute(
+    cursor.execute(
         """
         SELECT * FROM users 
             WHERE email = %s;
         """,
         (email,)
     )
-
-    if not emailExists:
+    tableRow = cursor.fetchone()
+    
+    if tableRow is None:
         cursor.close()
         db.close()
         return render_template('login.html', user_logged_in=False, bad_login=True)
     
     else:
-        tableRow = cursor.fetchone()
         cursor.close()
         db.close()
 
@@ -56,6 +59,7 @@ def submit_login():
         dbPasswordHash = tableRow["password_hash"]
         if CheckHash(password_pt, dbPasswordHash.encode('utf-8')):
             # Successful login
+            session.permanent = stay_logged_in
             session["user_id"] = tableRow["user_id"]
             session["user_name"] = tableRow["name"]
             session["user_email"] = tableRow["email"]
