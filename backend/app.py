@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 import MySQLdb
 import MySQLdb.cursors
 
@@ -15,9 +15,14 @@ app = Flask(__name__,
             template_folder='../frontend/templates', 
             static_folder='../frontend/static')
 
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
+
 @app.route('/')
 def login():
-    return render_template('login.html', user_logged_in=False)
+    if "user_id" not in session:
+        return render_template('login.html', user_logged_in=False)
+    else:
+        return redirect(url_for('dashboard'))
 
 @app.route('/login/submit', methods=["POST"])
 def submit_login():
@@ -51,7 +56,12 @@ def submit_login():
         dbPasswordHash = tableRow["password_hash"]
         if CheckHash(password_pt, dbPasswordHash.encode('utf-8')):
             # Successful login
-            return redirect('/dashboard')
+            session["user_id"] = tableRow["user_id"]
+            session["user_name"] = tableRow["name"]
+            session["user_email"] = tableRow["email"]
+            session["user_role"] = tableRow["role"]
+
+            return redirect(url_for('dashboard'))
         
         else:
             return render_template('login.html', user_logged_in=False, bad_login=True)
@@ -107,6 +117,9 @@ def submit_registration():
 
 @app.route('/dashboard')
 def dashboard():
+    if "user_id" not in session:
+        return redirect(url_for('login'))
+
     try:
         # Create a new database connection for this request
         db = dbl.get_db_connection()
@@ -121,6 +134,13 @@ def dashboard():
         return render_template('equipment.html', equipment=equipment_list, user_logged_in=True)
     except Exception as e:
         return f"Database Error: {str(e)}", 500
+    
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
