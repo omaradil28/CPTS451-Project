@@ -72,7 +72,7 @@ Here are links to the issues that we completed in this sprint:
  ## Incomplete Issues/User Stories
  Here are links to issues we worked on but did not complete in this sprint:
  
- * URL of issue 1 <<One sentence explanation of why issue was not completed>>
+ * https://github.com/omaradil28/CPTS451-Project/issues/10 <<Implemented but not tested for stability>>
  * URL of issue 2 <<One sentence explanation of why issue was not completed>>
  * URL of issue n <<One sentence explanation of why issue was not completed>>
  
@@ -88,19 +88,19 @@ Please review the following code files, which were actively developed during thi
  * [base.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/base.html)
  * [equipment.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/equipment.html)
  * [login.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/login.html)
+ * [pwsecurity.py](https://github.com/omaradil28/CPTS451-Project/blob/main/backend/pwsecurity.py)
+ * [register.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/register.html)
+ * [database.py](https://github.com/omaradil28/CPTS451-Project/blob/main/backend/database.py)
  
 ## Retrospective Summary
 Here's what went well:
   * Using a UI framework early on prevents us from having to fix navigation and styling inconsistencies later.
-  * Item 2
-  * Item x
+  * Database setup using MySQL was relatively easy and painless.
+  * Tasks were divided into manageable chunks to make progress visible.
  
 Here's what we'd like to improve:
    * Distributing tasks amongst ourselves should be done early on in the sprint.
-   * Item 2
-   * Item x
   
 Here are changes we plan to implement in the next sprint:
    * Expand the Live Database Queries using more SQL tables.
-   * Item 2
-   * Item x
+   * Distribute tasks properly
