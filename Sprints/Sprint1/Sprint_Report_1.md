@@ -13,7 +13,14 @@ Video Link:
  Tables are created and ready to store data in MySQL Workbench from the SQL setup script.
  * FEAT-107 (Eli Lawrence) - Database Connection
  Implements a live connection so backend can communicate with the SQL database to get and store information.
-
+ * FEAT-108 (Zachary Mullin) - User Registration
+ Frontend of registration allowing newcomers to enter information to sign up.
+ * FEAT-109 (Zachary Mullin) - User Registration Logic
+ Write the code to take form data from register.html and INSERT it into the users table.
+ * FEAT-110 (Zachary Mullin) - Authentication Logic
+ Update the login and registration route to verify emails and passwords against the database instead of just redirecting.
+ * FEAT-111 (Zachary Mullin) - Password Security
+ Hash passwords so they aren't stored as plain text in your database.
 
 ## Work Summary (Developer Facing)
 Provide a one paragraph synposis of what your team accomplished this sprint. Don't repeat the "What's New" list of features. Instead, help the instructor understand how you went about the work described there, any barriers you overcame, and any significant learnings for your team.
