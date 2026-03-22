@@ -50,10 +50,10 @@ If applicable, explain the work you did not finish in this sprint. For issues/us
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
 
- * URL of FEAT-101: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164712906&issue=omaradil28%7CCPTS451-Project%7C1
- * URL of FEAT-102: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164713179&issue=omaradil28%7CCPTS451-Project%7C2
- * URL of FEAT-103: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718476&issue=omaradil28%7CCPTS451-Project%7C20
- * URL of FEAT-104: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718679&issue=omaradil28%7CCPTS451-Project%7C21
+ * URL of FEAT-101: https://github.com/omaradil28/CPTS451-Project/issues/1
+ * URL of FEAT-102: https://github.com/omaradil28/CPTS451-Project/issues/2
+ * URL of FEAT-103: https://github.com/omaradil28/CPTS451-Project/issues/20
+ * URL of FEAT-104: https://github.com/omaradil28/CPTS451-Project/issues/21
  * URL of FEAT-106: https://github.com/omaradil28/CPTS451-Project/issues/4
  * URL of FEAT-107: https://github.com/omaradil28/CPTS451-Project/issues/5
  * URL of FEAT-105: https://github.com/omaradil28/CPTS451-Project/issues/3
@@ -72,7 +72,7 @@ Here are links to the issues that we completed in this sprint:
  ## Incomplete Issues/User Stories
  Here are links to issues we worked on but did not complete in this sprint:
  
- * https://github.com/omaradil28/CPTS451-Project/issues/10 <<Implemented but not tested for stability>>
+ * https://github.com/omaradil28/CPTS451-Project/issues/10 - Implemented but not tested for stability
  * URL of issue 2 <<One sentence explanation of why issue was not completed>>
  * URL of issue n <<One sentence explanation of why issue was not completed>>
  
