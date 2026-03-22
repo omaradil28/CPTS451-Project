@@ -2,24 +2,43 @@
 Video Link: 
 ## What's New (User Facing)
  * FEAT-101 (Omar Adil) - Dynamic Inventory Dashboard
+
  Displays the list of lab tools, using colored badges (Green/Red) and buttons that change automatically based on the equipment's status.
+ 
  * FEAT-102 (Omar Adil) - Authentication Interface
+   
  Page that collects user credentials and provides the entry point to the rest of the application.
+ 
  * FEAT-103 (Omar Adil) - UI Framework
+   
  Provides the main navigation bar and styling for the entire site, using logic to hide or show tabs based on whether a user is logged in.
+ 
  * FEAT-104 (Omar Adil) - URL Routing & Mock Data
+   
  Connects the URLs to the HTML files and provides the placeholder data used to test the website before the database is finished.
+ 
  * FEAT-106 (Eli Lawrence) - Database Schema Execution
+   
  Tables are created and ready to store data in MySQL Workbench from the SQL setup script.
+ 
  * FEAT-107 (Eli Lawrence) - Database Connection
+   
  Implements a live connection so backend can communicate with the SQL database to get and store information.
+ 
  * FEAT-108 (Zachary Mullin) - User Registration
+   
  Frontend of registration allowing newcomers to enter information to sign up.
+ 
  * FEAT-109 (Zachary Mullin) - User Registration Logic
+   
  Write the code to take form data from register.html and INSERT it into the users table.
+ 
  * FEAT-110 (Zachary Mullin) - Authentication Logic
+   
  Update the login and registration route to verify emails and passwords against the database instead of just redirecting.
+ 
  * FEAT-111 (Zachary Mullin) - Password Security
+   
  Hash passwords so they aren't stored as plain text in your database.
 
 ## Work Summary (Developer Facing)
