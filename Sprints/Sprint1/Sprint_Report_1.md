@@ -25,19 +25,19 @@ Video Link:
    
  Implements a live connection so backend can communicate with the SQL database to get and store information.
  
- * FEAT-108 (Zachary Mullin) - User Registration
+ * FEAT-105 (Zachary Mullin) - User Registration
    
  Frontend of registration allowing newcomers to enter information to sign up.
  
- * FEAT-109 (Zachary Mullin) - User Registration Logic
+ * FEAT-108 (Zachary Mullin) - User Registration Logic
    
  Write the code to take form data from register.html and INSERT it into the users table.
  
- * FEAT-110 (Zachary Mullin) - Authentication Logic
+ * FEAT-109 (Zachary Mullin) - Authentication Logic
    
  Update the login and registration route to verify emails and passwords against the database instead of just redirecting.
  
- * FEAT-111 (Zachary Mullin) - Password Security
+ * FEAT-110 (Zachary Mullin) - Password Security
    
  Hash passwords so they aren't stored as plain text in your database.
 
@@ -56,10 +56,10 @@ Here are links to the issues that we completed in this sprint:
  * URL of FEAT-104: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718679&issue=omaradil28%7CCPTS451-Project%7C21
  * URL of FEAT-106: https://github.com/omaradil28/CPTS451-Project/issues/4
  * URL of FEAT-107: https://github.com/omaradil28/CPTS451-Project/issues/5
- * URL of FEAT-108: https://github.com/omaradil28/CPTS451-Project/issues/3
- * URL of FEAT-109: https://github.com/omaradil28/CPTS451-Project/issues/6
- * URL of FEAT-110: https://github.com/omaradil28/CPTS451-Project/issues/7
- * URL of FEAT-111: https://github.com/omaradil28/CPTS451-Project/issues/8
+ * URL of FEAT-105: https://github.com/omaradil28/CPTS451-Project/issues/3
+ * URL of FEAT-108: https://github.com/omaradil28/CPTS451-Project/issues/6
+ * URL of FEAT-109: https://github.com/omaradil28/CPTS451-Project/issues/7
+ * URL of FEAT-110: https://github.com/omaradil28/CPTS451-Project/issues/8
 
  Desirables (Remove this section when you save the file):
   * Each issue should be assigned to a milestone
