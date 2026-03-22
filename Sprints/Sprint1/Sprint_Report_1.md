@@ -54,6 +54,12 @@ Here are links to the issues that we completed in this sprint:
  * URL of FEAT-102: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164713179&issue=omaradil28%7CCPTS451-Project%7C2
  * URL of FEAT-103: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718476&issue=omaradil28%7CCPTS451-Project%7C20
  * URL of FEAT-104: https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164718679&issue=omaradil28%7CCPTS451-Project%7C21
+ * URL of FEAT-106: https://github.com/omaradil28/CPTS451-Project/issues/4
+ * URL of FEAT-107: https://github.com/omaradil28/CPTS451-Project/issues/5
+ * URL of FEAT-108: https://github.com/omaradil28/CPTS451-Project/issues/3
+ * URL of FEAT-109: https://github.com/omaradil28/CPTS451-Project/issues/6
+ * URL of FEAT-110: https://github.com/omaradil28/CPTS451-Project/issues/7
+ * URL of FEAT-111: https://github.com/omaradil28/CPTS451-Project/issues/8
 
  Desirables (Remove this section when you save the file):
   * Each issue should be assigned to a milestone
