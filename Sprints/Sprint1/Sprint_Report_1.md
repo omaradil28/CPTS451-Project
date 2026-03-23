@@ -58,14 +58,6 @@ Here are links to the issues that we completed in this sprint:
  * URL of FEAT-108: https://github.com/omaradil28/CPTS451-Project/issues/6
  * URL of FEAT-109: https://github.com/omaradil28/CPTS451-Project/issues/7
  * URL of FEAT-110: https://github.com/omaradil28/CPTS451-Project/issues/8
-
- Desirables (Remove this section when you save the file):
-  * Each issue should be assigned to a milestone
-  * Each completed issue should be assigned to a pull request
-  * Each completed pull request should include a link to a "Before and After" video
-  * All team members who contributed to the issue should be assigned to it on GitHub
-  * Each issue should be assigned story points using a label
-  * Story points contribution of each team member should be indicated in a comment
  
 ## Code Files for Review
 Please review the following code files, which were actively developed during this sprint, for quality:
