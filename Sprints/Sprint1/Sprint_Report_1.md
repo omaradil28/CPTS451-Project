@@ -1,5 +1,5 @@
 # Sprint 1 Report 
-Video Link: 
+Video Link: https://youtu.be/JoA9FSLnWQo
 ## What's New (User Facing)
  * FEAT-101 (Omar Adil) - Dynamic Inventory Dashboard
 
