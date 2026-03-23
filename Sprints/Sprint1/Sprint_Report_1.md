@@ -42,10 +42,8 @@ Video Link:
  Hash passwords so they aren't stored as plain text in your database.
 
 ## Work Summary (Developer Facing)
-Provide a one paragraph synposis of what your team accomplished this sprint. Don't repeat the "What's New" list of features. Instead, help the instructor understand how you went about the work described there, any barriers you overcame, and any significant learnings for your team.
+We started off by brainstorming the features the final product would need. Then we move forward by implementing these features on at a time. We started with frontend implmentation such as a base page and built off of that. By the end of sprint 1, our application had a login page, registration page, and equipment feed page. We then added the backend logic so that our frontend would display and send information from the database. With that being said, our foundation for the project has been completed. 
 
-## Unfinished Work
-If applicable, explain the work you did not finish in this sprint. For issues/user stories in the current sprint that have not been closed, (a) any progress toward completion of the issues has been clearly tracked (by checking the checkboxes of  acceptance criteria), (b) a comment has been added to the issue to explain why the issue could not be completed (e.g., "we ran out of time" or "we did not anticipate it would be so much work"), and (c) the issue is added to a subsequent sprint, so that it can be addressed later.
 
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
@@ -69,19 +67,6 @@ Here are links to the issues that we completed in this sprint:
   * Each issue should be assigned story points using a label
   * Story points contribution of each team member should be indicated in a comment
  
- ## Incomplete Issues/User Stories
- Here are links to issues we worked on but did not complete in this sprint:
- 
- * https://github.com/omaradil28/CPTS451-Project/issues/10 - Implemented but not tested for stability
- * URL of issue 2 <<One sentence explanation of why issue was not completed>>
- * URL of issue n <<One sentence explanation of why issue was not completed>>
- 
- Examples of explanations (Remove this section when you save the file):
-  * "We ran into a complication we did not anticipate (explain briefly)." 
-  * "We decided that the feature did not add sufficient value for us to work on it in this sprint (explain briefly)."
-  * "We could not reproduce the bug" (explain briefly).
-  * "We did not get to this issue because..." (explain briefly)
-
 ## Code Files for Review
 Please review the following code files, which were actively developed during this sprint, for quality:
  * [app.py](https://github.com/omaradil28/CPTS451-Project/blob/main/backend/app.py)
