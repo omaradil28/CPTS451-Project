@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="row mb-4">
     <div class="col">
@@ -7,7 +6,6 @@
         <p class="text-muted">Current availability for all lab assets.</p>
     </div>
 </div>
-
 <div class="card shadow-sm border-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -26,16 +24,23 @@
                     <td>
                         {% if item.status == 'available' %}
                             <span class="badge bg-success text-white">Available</span>
+                        {% elif item.status == 'in_use' %}
+                            <span class="badge bg-warning text-dark">In Use</span>
                         {% else %}
-                            <span class="badge bg-danger text-white">In Use / Repair</span>
+                            <span class="badge bg-danger text-white">Under Repair</span>
                         {% endif %}
                     </td>
                     <td><small class="text-muted">Standard Lab Specs</small></td>
                     <td>
-                        {% if item.status == 'available' %}
-                            <button class="btn btn-sm btn-primary">Reserve Slot</button>
+                        {% if item.status != 'repair' %}
+                            <a href="{{ url_for('render_booking_page', equipment_id=item.equipment_id) }}" 
+                               class="btn btn-sm btn-primary">
+                                Reserve Slot
+                            </a>
                         {% else %}
-                            <button class="btn btn-sm btn-outline-secondary">Join Waitlist</button>
+                            <button class="btn btn-sm btn-secondary" disabled>
+                                Maintenance
+                            </button>
                         {% endif %}
                     </td>
                 </tr>
