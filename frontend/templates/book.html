@@ -3,105 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Equipment | Lab Connect</title>
+    <title>Schedule | {{ item.name }}</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .booking-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            color: #981e32; /* Crimson header */
-            text-align: center;
-            margin-top: 0;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        select, input[type="datetime-local"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Ensures padding doesn't affect width */
-            font-family: inherit;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #5e6a71; /* Dark gray button */
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #981e32; /* Hover to crimson */
-        }
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #5e6a71;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
+        :root { --wsu-crimson: #981e32; --wsu-gray: #5e6a71; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin: 0; padding: 40px; color: #333; }
+        .booking-card { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 5px solid var(--wsu-crimson); }
+        h2 { margin-top: 0; color: var(--wsu-crimson); text-align: center; }
+        .equipment-badge { background: #eee; padding: 10px; border-radius: 6px; text-align: center; margin-bottom: 25px; font-weight: bold; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.9em; font-weight: 600; color: var(--wsu-gray); }
+        select, .form-control-static { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; background-color: white; box-sizing: border-box; }
+        .form-control-static { background-color: #f8f9fa; display: block; }
+        .info-note { font-size: 0.8em; color: #777; margin-top: 15px; padding: 10px; background: #fff9db; border-radius: 5px; border-left: 3px solid #fcc419; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--wsu-gray); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background: var(--wsu-crimson); }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: var(--wsu-gray); text-decoration: none; font-size: 0.9em; }
     </style>
 </head>
 <body>
+<div class="booking-card">
+    <h2>Equipment Booking</h2>
+    <div class="equipment-badge">{{ item.name }}</div>
 
-    <div class="booking-container">
-        <h2>Reserve Equipment</h2>
+    <form action="{{ url_for('submit_booking') }}" method="POST">
+        <input type="hidden" name="equipment_id" value="{{ item.equipment_id }}">
+
+        <div class="form-group">
+            <label>Selected Equipment:</label>
+            <span class="form-control-static">{{ item.name }}</span>
+        </div>
+
+        <div class="form-group">
+            <label>1. Select Date</label>
+            <select name="booking_date" id="booking_date" required onchange="updateHours()">
+                {% for date in dates %}
+                    <option value="{{ date.value }}">{{ date.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
         
-        <form action="/book/submit" method="POST">
-            
-            <div class="form-group">
-                <label for="equipment_id">Select Equipment:</label>
-                <select name="equipment_id" id="equipment_id" required>
-    {% for item in equipment %}
-        <option value="{{ item.equipment_id }}">{{ item.name }} ({{ item.status }})</option>
-    {% endfor %} </select>
-                </select>
+        <div style="display: flex; gap: 15px;">
+            <div class="form-group" style="flex: 1;">
+                <label>2. Start Time</label>
+                <select name="start_hour" id="start_hour" required></select>
             </div>
-
-            <div class="form-group">
-                <label for="start_time">Start Time:</label>
-                <input type="datetime-local" id="start_time" name="start_time" required>
+            <div class="form-group" style="flex: 1;">
+                <label>3. End Time</label>
+                <select name="end_hour" id="end_hour" required></select>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="end_time">End Time:</label>
-                <input type="datetime-local" id="end_time" name="end_time" required>
-            </div>
+        <div class="info-note">
+            <strong>Booking Policy:</strong>
+            <ul style="margin: 5px 0; padding-left: 20px;">
+                <li>1-hour grace period for same-day bookings.</li>
+                <li>Max duration: 4 hours.</li>
+            </ul>
+        </div>
 
-            <button type="submit">Submit Reservation</button>
-        </form>
+        <button type="submit" class="btn-submit">Confirm Reservation</button>
+    </form>
+    <a href="{{ url_for('dashboard') }}" class="back-link">← Cancel and return</a>
+</div>
+
+<script>
+    const todayDate = "{{ today_date }}";
+    // We use tojson|safe to pass the Python lists into JavaScript safely
+    const todayHours = JSON.parse('{{ today_hours|tojson|safe }}');
+    const otherHours = JSON.parse('{{ other_hours|tojson|safe }}');
+
+    function updateHours() {
+        const datePicker = document.getElementById('booking_date');
+        const startSelect = document.getElementById('start_hour');
+        const endSelect = document.getElementById('end_hour');
         
-        <a href="/dashboard" class="back-link">Cancel and return to Dashboard</a>
-    </div>
+        const selectedHours = (datePicker.value === todayDate) ? todayHours : otherHours;
+        
+        startSelect.innerHTML = "";
+        endSelect.innerHTML = "";
+        
+        if (selectedHours.length === 0) {
+            let opt = document.createElement("option");
+            opt.text = "No slots left today";
+            opt.disabled = true;
+            startSelect.add(opt);
+            return;
+        }
 
+        selectedHours.forEach(h => {
+            let opt1 = document.createElement("option");
+            opt1.value = h.value;
+            opt1.text = h.label;
+            startSelect.add(opt1);
+
+            let opt2 = document.createElement("option");
+            opt2.value = h.value;
+            opt2.text = h.label;
+            endSelect.add(opt2);
+        });
+    }
+
+    // Initial call to populate hours based on the default selected date
+    updateHours();
+</script>
 </body>
 </html>
