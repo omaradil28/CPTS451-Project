@@ -72,7 +72,8 @@ def submit_registration():
 def dashboard():
     try:
         db = dbl.get_db_connection()
-        cursor = db.cursor(dictionary=True) # dictionary=True makes templates easier!
+        # FIXED: Removed (dictionary=True) because dbl.get_db_connection sets DictCursor
+        cursor = db.cursor() 
         
         cursor.execute("SELECT * FROM equipment")
         equipment_list = cursor.fetchall()
@@ -88,7 +89,8 @@ def dashboard():
 @app.route('/book')
 def render_booking_page():
     db = dbl.get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    # FIXED: Removed (dictionary=True) 
+    cursor = db.cursor()
     
     # Grab the equipment so the user can select what they want to book
     cursor.execute("SELECT equipment_id, name, status FROM equipment")
@@ -99,7 +101,6 @@ def render_booking_page():
     
     return render_template('book.html', equipment=equipment_list)
 
-# --- ADD THIS NEW ROUTE HERE ---
 @app.route('/book/submit', methods=['POST'])
 def submit_booking():
     # 1. Grab the data from your HTML form
