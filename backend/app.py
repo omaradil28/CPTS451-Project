@@ -72,7 +72,7 @@ def submit_registration():
 def dashboard():
     try:
         db = dbl.get_db_connection()
-        cursor = db.cursor(dictionary=True) # dictionary=True makes templates easier!
+        cursor = db.cursor() # dictionary=True makes templates easier!
         
         cursor.execute("SELECT * FROM equipment")
         equipment_list = cursor.fetchall()
@@ -87,17 +87,20 @@ def dashboard():
 
 @app.route('/book')
 def render_booking_page():
-    db = dbl.get_db_connection()
-    cursor = db.cursor(dictionary=True)
-    
-    # Grab the equipment so the user can select what they want to book
-    cursor.execute("SELECT equipment_id, name, status FROM equipment")
-    equipment_list = cursor.fetchall()
-    
-    cursor.close()
-    db.close()
-    
-    return render_template('book.html', equipment=equipment_list)
+    try:
+        db = dbl.get_db_connection()
+        cursor = db.cursor()
+        
+        # Grab the equipment so the user can select what they want to book
+        cursor.execute("SELECT equipment_id, name, status FROM equipment")
+        equipment_list = cursor.fetchall()
+        
+        cursor.close()
+        db.close()
+        
+        return render_template('book.html', equipment=equipment_list)
+    except Exception as e:
+        return f"Database Error: {str(e)}", 500
 
 # --- ADD THIS NEW ROUTE HERE ---
 @app.route('/book/submit', methods=['POST'])

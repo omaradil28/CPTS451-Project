@@ -81,9 +81,9 @@
             <div class="form-group">
                 <label for="equipment_id">Select Equipment:</label>
                 <select name="equipment_id" id="equipment_id" required>
-                    {% for item in equipment %}
-                        <option value="{{ item.equipment_id }}">{{ item.name }} ({{ item.status }})</option>
-                    {% endflloop %}
+    {% for item in equipment %}
+        <option value="{{ item.equipment_id }}">{{ item.name }} ({{ item.status }})</option>
+    {% endfor %} </select>
                 </select>
             </div>
 
