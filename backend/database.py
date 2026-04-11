@@ -1,5 +1,6 @@
 import MySQLdb
 import os
+import MySQLdb.cursors
 
 # Database function library.
 
