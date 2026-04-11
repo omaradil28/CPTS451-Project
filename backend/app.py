@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 import MySQLdb
 import MySQLdb.cursors
-
+import reservations
 import database as dbl
 from dotenv import load_dotenv
 from pwsecurity import HashPassword
@@ -71,9 +71,8 @@ def submit_registration():
 @app.route('/dashboard')
 def dashboard():
     try:
-        # Create a new database connection for this request
         db = dbl.get_db_connection()
-        cursor = db.cursor()
+        cursor = db.cursor(dictionary=True) # dictionary=True makes templates easier!
         
         cursor.execute("SELECT * FROM equipment")
         equipment_list = cursor.fetchall()
@@ -84,6 +83,43 @@ def dashboard():
         return render_template('equipment.html', equipment=equipment_list, user_logged_in=True)
     except Exception as e:
         return f"Database Error: {str(e)}", 500
+    
+
+@app.route('/book')
+def render_booking_page():
+    db = dbl.get_db_connection()
+    cursor = db.cursor(dictionary=True)
+    
+    # Grab the equipment so the user can select what they want to book
+    cursor.execute("SELECT equipment_id, name, status FROM equipment")
+    equipment_list = cursor.fetchall()
+    
+    cursor.close()
+    db.close()
+    
+    return render_template('book.html', equipment=equipment_list)
+
+# --- ADD THIS NEW ROUTE HERE ---
+@app.route('/book/submit', methods=['POST'])
+def submit_booking():
+    # 1. Grab the data from your HTML form
+    equipment_id = request.form['equipment_id']
+    start_time = request.form['start_time']
+    end_time = request.form['end_time']
+    
+    # 2. Hardcode a user_id for testing (until you set up Flask sessions)
+    user_id = 1 
+
+    # 3. Pass it all to your business logic file!
+    result = reservations.create_reservation(user_id, equipment_id, start_time, end_time)
+
+    # 4. Handle the result
+    if result['status'] == 'success':
+        # Send them back to the dashboard if it worked
+        return redirect(url_for('dashboard'))
+    else:
+        # If they got waitlisted or caused an error, show them the message
+        return result['message']
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Equipment | Lab Connect</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .booking-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            color: #981e32; /* Crimson header */
+            text-align: center;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            font-family: inherit;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5e6a71; /* Dark gray button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #981e32; /* Hover to crimson */
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #5e6a71;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="booking-container">
+        <h2>Reserve Equipment</h2>
+        
+        <form action="/book/submit" method="POST">
+            
+            <div class="form-group">
+                <label for="equipment_id">Select Equipment:</label>
+                <select name="equipment_id" id="equipment_id" required>
+                    {% for item in equipment %}
+                        <option value="{{ item.equipment_id }}">{{ item.name }} ({{ item.status }})</option>
+                    {% endflloop %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="start_time">Start Time:</label>
+                <input type="datetime-local" id="start_time" name="start_time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="end_time">End Time:</label>
+                <input type="datetime-local" id="end_time" name="end_time" required>
+            </div>
+
+            <button type="submit">Submit Reservation</button>
+        </form>
+        
+        <a href="/dashboard" class="back-link">Cancel and return to Dashboard</a>
+    </div>
+
+</body>
+</html>
