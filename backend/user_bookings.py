@@ -33,6 +33,8 @@ def cancel_booking(reservation_id):
     db = dbl.get_db_connection()
     cursor = db.cursor()
 
-    query = """SELECT *
-                FROM reservations 
+    query = """UPDATE reservations
+                SET status = 'cancelled'
                 WHERE reservation_id = %s;"""
+    
+    cursor.execute(query, reservation_id)
