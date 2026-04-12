@@ -2,7 +2,7 @@
 Video Link: 
 ## What's New (User Facing)
  * Equipment Management (Omar Adil)
-Build a form for Admins to add new equipment, edit names, or delete old assets from the database.
+- Build a form for Admins to add new equipment, edit names, or delete old assets from the database.
 
 ## Work Summary (Developer Facing)
 Provide a one paragraph synposis of what your team accomplished this sprint. Don't repeat the "What's New" list of features. Instead, help the instructor understand how you went about the work described there, any barriers you overcame, and any significant learnings for your team.
