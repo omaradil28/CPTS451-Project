@@ -109,7 +109,11 @@ def render_booking_page(equipment_id, error=None):
 def submit_booking():
     if 'user_id' not in session: return redirect(url_for('login'))
     res = reservations.create_reservation(session['user_id'], request.form['equipment_id'], f"{request.form['booking_date']}T{request.form['start_hour']}", f"{request.form['booking_date']}T{request.form['end_hour']}")
-    return redirect(url_for('dashboard')) if res['status'] == 'success' else render_booking_page(request.form['equipment_id'], "Error: Your chosen reservation start time cannot be after your chosen end time.")
+    
+    if res['status'] == 'success':
+        return redirect(url_for('dashboard'))
+    else:
+        return render_booking_page(request.form['equipment_id'], "Error: " + res['message'])
 
 # --- TECHNICIAN ROUTES ---
 
