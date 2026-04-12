@@ -8,46 +8,47 @@
 </div>
 <div class="card shadow-sm border-0">
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>Equipment Name</th>
-                    <th>Status</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in bookings %}
-                <tr>
-                    <td><strong>{{ item.name }}</strong></td>
-                    <td>
-                        {% if item.status == 'active' %}
-                            <span class="badge bg-success text-white">Active</span>
-                        {% elif item.status == 'cancelled' %}
-                            <span class="badge bg-danger text-dark">Cancelled</span>
-                        {% else %}
-                            <span class="badge bg-warning text-white">Completed</span>
-                        {% endif %}
-                    </td>
-                    <td><small class="text-muted">Standard Lab Specs</small></td>
-                    <td>
-                        {% if item.status != 'repair' %}
-                            <a href="{{ url_for('render_booking_page', equipment_id=item.equipment_id) }}" 
+        {% if bookings %}
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Equipment Name</th>
+                        <th>Status</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in bookings %}
+                    <tr>
+                        <td><strong>{{ item.equipment_name }}</strong></td>
+                        <td>
+                            {% if item.status == 'active' %}
+                                <span class="badge bg-success text-white">Active</span>
+                            {% elif item.status == 'cancelled' %}
+                                <span class="badge bg-danger text-white">Cancelled</span>
+                            {% else %}
+                                <span class="badge bg-warning text-white">Completed</span>
+                            {% endif %}
+                        </td>
+                        <td><small class="text-muted">{{ item.start_time }}</small></td>
+                        <td><small class="text-muted">{{ item.end_time }}</small></td>
+                        <td>
+                            {% if item.status == 'active' %}
+                                <a href="{{ url_for('cancel_booking_conn', reservation_id=item.reservation_id) }}" 
                                class="btn btn-sm btn-primary">
-                                Reserve Slot
-                            </a>
-                        {% else %}
-                            <button class="btn btn-sm btn-secondary" disabled>
-                                Maintenance
-                            </button>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                                    Cancel Booking
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div style="background:rgb(184, 35, 35)0; padding: 10px; border-radius: 6px; color: #ffffff; margin-bottom: 25px;">You have no bookings.</div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

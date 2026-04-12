@@ -17,6 +17,9 @@
                         {% if session.get('user_role') == 'technician' %}
                         <li class="nav-item"><a class="nav-link text-info fw-bold" href="{{ url_for('admin_panel') }}">Management</a></li>
                         {% endif %}
+                        {% if session.get('user_role') == 'student' %}
+                        <li class="nav-item"><a class="nav-link text-info fw-bold" href="{{ url_for('my_bookings_page') }}">Bookings</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>

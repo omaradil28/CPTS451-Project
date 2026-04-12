@@ -12,19 +12,26 @@ def get_bookings(user_id):
                 FROM reservations
                 WHERE user_id = %s;"""
     
-    cursor.execute(query, user_id)
+    cursor.execute(query, (user_id,))
 
     for row in cursor.fetchall():
-        user_bookings.append(
-            {
-                "reservation_id": row[0],
-                "user_id": row[1],
-                "equipment_id": row[2],
-                "start_time": row[3],
-                "end_time": row[4],
-                "status": row[5],
+        bookingDict = {
+                "reservation_id": row["reservation_id"],
+                "user_id": row["user_id"],
+                "equipment_id": row["equipment_id"],
+                "start_time": row["start_time"],
+                "end_time": row["end_time"],
+                "status": row["status"],
             }
-        )
+        
+        name_cursor = db.cursor()
+        name_query = """SELECT *
+                        FROM equipment
+                        WHERE equipment_id = %s"""
+        name_cursor.execute(name_query, (bookingDict["equipment_id"],))
+        bookingDict["equipment_name"] = name_cursor.fetchone()["name"]
+
+        user_bookings.append(bookingDict)
     
     return user_bookings
 
@@ -37,4 +44,5 @@ def cancel_booking(reservation_id):
                 SET status = 'cancelled'
                 WHERE reservation_id = %s;"""
     
-    cursor.execute(query, reservation_id)
+    cursor.execute(query, (reservation_id,))
+    db.commit()

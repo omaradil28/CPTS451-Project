@@ -5,6 +5,7 @@ import database as dbl
 from pwsecurity import HashPassword, CheckHash
 import os
 from dotenv import load_dotenv
+from user_bookings import get_bookings, cancel_booking
 
 load_dotenv()
 
@@ -114,6 +115,21 @@ def submit_booking():
         return redirect(url_for('dashboard'))
     else:
         return render_booking_page(request.form['equipment_id'], "Error: " + res['message'])
+    
+
+@app.route('/bookings')
+def my_bookings_page():
+    if 'user_id' not in session: return redirect(url_for('login'))
+
+    bookings_list = get_bookings(session['user_id'])
+    return render_template('my_bookings.html', bookings=bookings_list)
+
+@app.route('/bookings/cancel/<int:reservation_id>')
+def cancel_booking_conn(reservation_id):
+    if 'user_id' not in session: return redirect(url_for('login'))
+
+    cancel_booking(reservation_id)
+    return my_bookings_page()
 
 # --- TECHNICIAN ROUTES ---
 
