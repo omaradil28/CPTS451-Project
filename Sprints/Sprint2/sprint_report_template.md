@@ -2,6 +2,7 @@
 Video Link: 
 ## What's New (User Facing)
  * Equipment Management (Omar Adil)
+ 
  Build a form for Admins to add new equipment, edit names, or delete old assets from the database.
 
 ## Work Summary (Developer Facing)
