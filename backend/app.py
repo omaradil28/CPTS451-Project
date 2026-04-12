@@ -82,7 +82,7 @@ def dashboard():
     return render_template('equipment.html', equipment=equipment_list)
 
 @app.route('/book/<int:equipment_id>')
-def render_booking_page(equipment_id):
+def render_booking_page(equipment_id, error=None):
     if 'user_id' not in session: return redirect(url_for('login'))
     db = dbl.get_db_connection()
     cursor = db.cursor()
@@ -100,13 +100,16 @@ def render_booking_page(equipment_id):
     other_hours = [{'value': f"{h:02d}:00", 'label': datetime.strptime(f"{h}", "%H").strftime("%I:%M %p").lstrip("0")} for h in range(8, 21)]
     cursor.close()
     db.close()
-    return render_template('book.html', item=item, dates=available_dates, today_date=now.strftime('%Y-%m-%d'), today_hours=today_hours, other_hours=other_hours)
+    if error == None:
+            return render_template('book.html', item=item, dates=available_dates, today_date=now.strftime('%Y-%m-%d'), today_hours=today_hours, other_hours=other_hours)
+    else:
+        return render_template('book.html', item=item, dates=available_dates, today_date=now.strftime('%Y-%m-%d'), today_hours=today_hours, other_hours=other_hours, error=True, errorMsg=error)
 
 @app.route('/book/submit', methods=['POST'])
 def submit_booking():
     if 'user_id' not in session: return redirect(url_for('login'))
     res = reservations.create_reservation(session['user_id'], request.form['equipment_id'], f"{request.form['booking_date']}T{request.form['start_hour']}", f"{request.form['booking_date']}T{request.form['end_hour']}")
-    return redirect(url_for('dashboard')) if res['status'] == 'success' else (f"Error: {res['message']}", 400)
+    return redirect(url_for('dashboard')) if res['status'] == 'success' else render_booking_page(request.form['equipment_id'], "Error: Your chosen reservation start time cannot be after your chosen end time.")
 
 # --- TECHNICIAN ROUTES ---
 

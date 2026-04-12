@@ -10,6 +10,7 @@
         .booking-card { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 5px solid var(--wsu-crimson); }
         h2 { margin-top: 0; color: var(--wsu-crimson); text-align: center; }
         .equipment-badge { background: #eee; padding: 10px; border-radius: 6px; text-align: center; margin-bottom: 25px; font-weight: bold; }
+        .error-msg { background:rgb(184, 35, 35)0; padding: 10px; border-radius: 6px; color: #ffffff; margin-bottom: 25px; }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-size: 0.9em; font-weight: 600; color: var(--wsu-gray); }
         select, .form-control-static { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; background-color: white; box-sizing: border-box; }
@@ -24,7 +25,9 @@
 <div class="booking-card">
     <h2>Equipment Booking</h2>
     <div class="equipment-badge">{{ item.name }}</div>
-
+    {% if error %}
+    <div class="error-msg">{{ errorMsg }}</div>
+    {% endif %}
     <form action="{{ url_for('submit_booking') }}" method="POST">
         <input type="hidden" name="equipment_id" value="{{ item.equipment_id }}">
 
