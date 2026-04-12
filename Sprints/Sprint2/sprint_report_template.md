@@ -11,7 +11,9 @@ Provide a one paragraph synposis of what your team accomplished this sprint. Don
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
 
- * URL of issue 1
+ * URL of Equipment Management feature
+   
+https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164719586&issue=omaradil28%7CCPTS451-Project%7C23
  * URL of issue 2
  * URL of issue n
 
