@@ -19,9 +19,14 @@ https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=1647195
 
 ## Code Files for Review
 Please review the following code files, which were actively developed during this sprint, for quality:
- * [Name of code file 1](https://github.com/your_repo/file_extension)
- * [Name of code file 2](https://github.com/your_repo/file_extension)
- * [Name of code file 3](https://github.com/your_repo/file_extension)
+ * [app.py](https://github.com/omaradil28/CPTS451-Project/blob/main/backend/app.py)
+ * [reservations.py](https://github.com/omaradil28/CPTS451-Project/blob/main/backend/reservations.py)
+ * [admin.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/admin.html)
+ * [base.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/base.html)
+ * [login.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/login.html)
+ * [equipment.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/equipment.html)
+ * [book.html](https://github.com/omaradil28/CPTS451-Project/blob/main/frontend/templates/book.html)
+  
  
 ## Retrospective Summary
 Here's what went well:
