@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Lab Asset Management</h2>
+        <form action="{{ url_for('admin_add') }}" method="POST" class="row g-2">
+            <div class="col-auto">
+                <input type="text" name="name" class="form-control" placeholder="New Asset Name" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-success">Add to Inventory</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <table class="table align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Equipment Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in equipment %}
+                <tr>
+                    <td>{{ item.equipment_id }}</td>
+                    <form action="{{ url_for('admin_update', equipment_id=item.equipment_id) }}" method="POST">
+                        <td>
+                            <input type="text" name="name" class="form-control form-control-sm" value="{{ item.name }}" required>
+                        </td>
+                        <td>
+                            <select name="status" class="form-select form-select-sm">
+                                <option value="available" {% if item.status == 'available' %}selected{% endif %}>Available</option>
+                                <option value="repair" {% if item.status == 'repair' %}selected{% endif %}>Repair</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </form>
+                            <form action="{{ url_for('admin_delete', equipment_id=item.equipment_id) }}" method="POST" onsubmit="return confirm('Delete permanently?')">
+                                <button type="submit" class="btn btn-outline-danger btn-sm ms-1">Delete</button>
+                            </form>
+                            </div>
+                        </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
