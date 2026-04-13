@@ -15,7 +15,7 @@ Our database connections were already mostly implemented in the previous sprint.
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
 
- * [Equipment Management] (https://github.com/omaradil28/CPTS451-Project/issues/23)
+ * [Equipment Management](https://github.com/omaradil28/CPTS451-Project/issues/23)
  * [Error Handling](https://github.com/omaradil28/CPTS451-Project/issues/18)
  * [My Bookings Page](https://github.com/omaradil28/CPTS451-Project/issues/32)
 
