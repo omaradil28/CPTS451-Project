@@ -15,9 +15,7 @@ Our database connections were already mostly implemented in the previous sprint.
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
 
- * URL of Equipment Management feature
-
- https://github.com/users/omaradil28/projects/6/views/1?pane=issue&itemId=164719586&issue=omaradil28%7CCPTS451-Project%7C23
+ * [Equipment Management] (https://github.com/omaradil28/CPTS451-Project/issues/23)
  * [Error Handling](https://github.com/omaradil28/CPTS451-Project/issues/18)
  * [My Bookings Page](https://github.com/omaradil28/CPTS451-Project/issues/32)
 
