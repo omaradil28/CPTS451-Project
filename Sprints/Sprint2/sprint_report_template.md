@@ -1,5 +1,7 @@
 # Sprint x Report 
-Video Link: 
+Video Link: https://youtu.be/ISOQimlpKjc?si=6t2hQNBz5EhWFHdc
+
+
 ## What's New (User Facing)
  * Equipment Management (Omar Adil)
  * Bookings Page (Zachary Mullin)
@@ -40,10 +42,10 @@ Here's what went well:
  
 Here's what we'd like to improve:
    * Communication and deadlines
-   * Item 2
-   * Item x
+   * Fixing bugs
+   * Being more proactive
   
 Here are changes we plan to implement in the next sprint:
-   * Item 1
-   * Item 2
-   * Item x
+   * Admin side of reservation handling
+   * Usage logs
+   * Improve usability
