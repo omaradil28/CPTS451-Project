@@ -10,16 +10,22 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{{ url_for('dashboard' if session.get('user_id') else 'login') }}">WSU Lab Connect</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     {% if session.get('user_id') %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Equipment</a></li>
+                        
                         {% if session.get('user_role') == 'technician' %}
-                        <li class="nav-item"><a class="nav-link text-info fw-bold" href="{{ url_for('admin_panel') }}">Management</a></li>
+                            <li class="nav-item"><a class="nav-link text-info fw-bold" href="{{ url_for('admin_panel') }}">Management</a></li>
                         {% endif %}
+                        
                         {% if session.get('user_role') == 'student' %}
-                        <li class="nav-item"><a class="nav-link " href="{{ url_for('my_bookings_page') }}">Bookings</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('my_bookings_page') }}">Bookings</a></li>
                         {% endif %}
+                        
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
