@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from flask import Flask, render_template, redirect, url_for, request, session
 from dotenv import load_dotenv
 
-# Database and Security modules
 import database as dbl
 import reservations
 from pwsecurity import HashPassword, CheckHash
@@ -29,16 +28,12 @@ def submit_login():
     email = request.form.get("email")
     password_pt = request.form.get("password")
     stay_logged_in = request.form.get("stay_logged_in") is not None
-
     db = dbl.get_db_connection()
     cursor = db.cursor()
-
     cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
     user = cursor.fetchone()
-    
     cursor.close()
     db.close()
-
     if user and CheckHash(password_pt, user["password_hash"].encode('utf-8')):
         session.permanent = stay_logged_in
         session["user_id"] = user["user_id"]
@@ -46,7 +41,6 @@ def submit_login():
         session["user_email"] = user["email"]
         session["user_role"] = user["role"]
         return redirect(url_for('dashboard'))
-    
     return render_template('login.html', user_logged_in=False, bad_login=True, error="Invalid email or password.")
 
 @app.route('/register')
@@ -57,31 +51,24 @@ def register():
 def submit_registration():
     db = dbl.get_db_connection()
     cursor = db.cursor()
-    
     name = request.form["name"]
     email = request.form["email"]
     password_pt = request.form["password"]
     role = request.form["role"]
-    
     password_hash = HashPassword(password_pt).decode('utf-8')
-    
     cursor.execute("SELECT * FROM users WHERE email = %s;", (email,))
     if not cursor.fetchone():
         cursor.execute("INSERT INTO users (name, email, password_hash, role) VALUES (%s, %s, %s, %s);", 
                        (name, email, password_hash, role))
         db.commit()
-        
         cursor.execute("SELECT user_id, role FROM users WHERE email = %s;", (email,))
         user = cursor.fetchone()
-        
         session['user_id'] = user['user_id']
         session['user_name'] = name
         session['user_role'] = user['role']
-        
         cursor.close()
         db.close()
         return redirect(url_for('dashboard'))
-    
     cursor.close()
     db.close()
     return render_template('register.html', account_exists=True)
@@ -93,9 +80,7 @@ def logout():
 
 @app.route('/dashboard')
 def dashboard():
-    if 'user_id' not in session: 
-        return redirect(url_for('login'))
-    
+    if 'user_id' not in session: return redirect(url_for('login'))
     db = dbl.get_db_connection()
     cursor = db.cursor() 
     cursor.execute("SELECT * FROM equipment")
@@ -117,33 +102,52 @@ def render_booking_page(equipment_id, error=None):
         cursor.close()
         db.close()
         return "Equipment unavailable", 403
-    
+
     now = datetime.now()
-    available_dates = [{'value': (now + timedelta(days=i)).strftime('%Y-%m-%d'), 
-                        'label': (now + timedelta(days=i)).strftime('%A, %b %d')} for i in range(14)]
+    selected_date_str = request.args.get('date', now.strftime('%Y-%m-%d'))
     
-    grace_period_hour = now.hour + 2 if now.minute > 30 else now.hour + 1
-    today_hours = [{'value': f"{h:02d}:00", 'label': datetime.strptime(f"{h}", "%H").strftime("%I:%M %p").lstrip("0")} 
-                   for h in range(8, 21) if h >= grace_period_hour]
-    other_hours = [{'value': f"{h:02d}:00", 'label': datetime.strptime(f"{h}", "%H").strftime("%I:%M %p").lstrip("0")} 
-                   for h in range(8, 21)]
+    cursor.execute("""
+        SELECT start_time, end_time FROM reservations 
+        WHERE equipment_id = %s AND status = 'active' 
+        AND DATE(start_time) = %s
+    """, (equipment_id, selected_date_str))
+    booked_slots = cursor.fetchall()
+
+    def is_booked(hour):
+        check_time = datetime.strptime(f"{selected_date_str} {hour}:00", "%Y-%m-%d %H:%M")
+        for res in booked_slots:
+            if res['start_time'] <= check_time < res['end_time']:
+                return True
+        return False
+
+    available_hours = []
+    grace_hour = now.hour + 1 if selected_date_str == now.strftime('%Y-%m-%d') else 0
     
+    for h in range(8, 21):
+        if h >= grace_hour and not is_booked(h):
+            label = datetime.strptime(f"{h}", "%H").strftime("%I:%M %p").lstrip("0")
+            available_hours.append({'value': f"{h:02d}:00", 'label': label})
+
+    dates = [{'value': (now + timedelta(days=i)).strftime('%Y-%m-%d'), 
+              'label': (now + timedelta(days=i)).strftime('%A, %b %d')} for i in range(14)]
+
     cursor.close()
     db.close()
     
-    return render_template('book.html', item=item, dates=available_dates, 
-                           today_date=now.strftime('%Y-%m-%d'), today_hours=today_hours, 
-                           other_hours=other_hours, error=(error is not None), errorMsg=error)
+    return render_template('book.html', 
+                           item=item, 
+                           dates=dates, 
+                           selected_date=selected_date_str,
+                           available_hours=available_hours, 
+                           error=(error is not None), 
+                           errorMsg=error)
 
 @app.route('/book/submit', methods=['POST'])
 def submit_booking():
     if 'user_id' not in session: return redirect(url_for('login'))
-    
     start_dt = f"{request.form['booking_date']}T{request.form['start_hour']}"
     end_dt = f"{request.form['booking_date']}T{request.form['end_hour']}"
-    
     res = reservations.create_reservation(session['user_id'], request.form['equipment_id'], start_dt, end_dt)
-    
     if res['status'] == 'success':
         return redirect(url_for('dashboard'))
     else:
@@ -165,7 +169,6 @@ def cancel_booking_conn(reservation_id):
 def admin_panel():
     if 'user_id' not in session or session.get('user_role') != 'technician':
         return "Access Denied", 403
-    
     db = dbl.get_db_connection()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM equipment")
@@ -190,7 +193,6 @@ def admin_update(equipment_id):
     if session.get('user_role') != 'technician': return "Unauthorized", 403
     new_name = request.form.get('name')
     new_status = request.form.get('status')
-    
     db = dbl.get_db_connection()
     cursor = db.cursor()
     try:
